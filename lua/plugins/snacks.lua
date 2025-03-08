@@ -32,19 +32,19 @@ return {
         -- indent = { enabled = false },
         -- input = { enabled = false },
         --
-        statuscolumn = {
-            left = { "mark", "sign" }, -- priority of signs on the left (high to low)
-            right = { "fold", "git" }, -- priority of signs on the right (high to low)
-            folds = {
-                open = false, -- show open fold icons
-                git_hl = false, -- use Git Signs hl for fold icons
-            },
-            git = {
-                -- patterns to match Git signs
-                patterns = { "GitSign", "MiniDiffSign" },
-            },
-            refresh = 50,
-        },
+        -- statuscolumn = {
+        --     left = { "mark", "sign" }, -- priority of signs on the left (high to low)
+        --     right = { "fold", "git" }, -- priority of signs on the right (high to low)
+        --     folds = {
+        --         open = false, -- show open fold icons
+        --         git_hl = false, -- use Git Signs hl for fold icons
+        --     },
+        --     git = {
+        --         -- patterns to match Git signs
+        --         patterns = { "GitSign", "MiniDiffSign" },
+        --     },
+        --     refresh = 50,
+        -- },
         input = {
             win = {
                 position = "bottom", -- Options: 'top', 'bottom', 'left', 'right'
@@ -57,7 +57,7 @@ return {
         -- quickfile = { enabled = true },
         -- scope = { enabled = true },
         -- scroll = { enabled = true },
-        -- statuscolumn = { enabled = true },
+        statuscolumn = { enabled = true },
         -- words = { enabled = true },
         --
         image = {
@@ -121,7 +121,7 @@ return {
                 convert = false,
                 placement = false,
             },
-            env = {},
+            -- env = {},
             -- icons used to show where an inline image is located that is
             -- rendered below the text.
             icons = {
