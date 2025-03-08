@@ -9,6 +9,7 @@ return {
             preset = {
                 -- Used by the `header` section
                 header = [[
+
 .______    _______ .__   __.   ______    _______   ___________    ____ 
 |   _  \  |   ____||  \ |  |  /  __  \  |       \ |   ____\   \  /   / 
 |  |_)  | |  |__   |   \|  | |  |  |  | |  .--.  ||  |__   \   \/   /  
@@ -18,17 +19,11 @@ return {
                                                                          ]],
             },
             sections = {
-                {
-                    pane = 1,
-                    { section = "header" },
-                    { section = "keys", gap = 0 },
-                },
-                {
-                    pane = 2,
-                    { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = { 2, 2 } },
-                    { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
-                    { section = "startup" },
-                },
+                { section = "header" },
+                { section = "keys", gap = 0 },
+                { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = { 2, 2 } },
+                { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
+                { section = "startup" },
             },
         },
         explorer = { enabled = true },
