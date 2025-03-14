@@ -62,6 +62,7 @@ return {
         --
         image = {
             formats = {
+                "svg",
                 "png",
                 "jpg",
                 "jpeg",
