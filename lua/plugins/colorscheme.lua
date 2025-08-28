@@ -1,9 +1,14 @@
 return {
     {
-        "Mofiqul/vscode.nvim",
+
+        "scottmckendry/cyberdream.nvim",
         config = function()
-            vim.cmd([[colorscheme vscode]])
+            vim.cmd([[colorscheme cyberdream]])
         end,
+        -- "Mofiqul/vscode.nvim",
+        -- config = function()
+        --     vim.cmd([[colorscheme vscode]])
+        -- end,
         -- "folke/tokyonight.nvim",
         --
         -- opts = {
