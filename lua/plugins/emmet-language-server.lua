@@ -5,7 +5,6 @@ return {
             servers = {
                 emmet_language_server = {
                     filetypes = {
-                        "java",
                         "html",
                         "blade",
                         "css",
