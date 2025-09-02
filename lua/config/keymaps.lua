@@ -8,6 +8,10 @@ vim.keymap.set("n", "<leader>tf", function()
     tests.run_gradle_test("file")
 end, { desc = "Run [T]est [F]ile" })
 
+vim.keymap.set("n", "<leader>ct", function()
+    tests.create_test_file()
+end, { desc = "[C]reate [T]est file" })
+
 -- Run the specific test function under the cursor
 vim.keymap.set("n", "<leader>tt", function()
     tests.run_gradle_test("function")

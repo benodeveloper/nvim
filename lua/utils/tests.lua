@@ -56,5 +56,111 @@ function M.run_gradle_test(mode)
     term:toggle()
     print("Running command: " .. command)
 end
+function M.create_test_file()
+    local source_path = vim.fn.expand("%:p")
+    local test_path
+    local boilerplate = {}
+    local class_name
+
+    -- Check if we are already in a test file
+    -- ✅ FIX: Use separate 'or' checks for each test file extension
+    if
+        source_path:match("%.test%.")
+        or source_path:match("Test%.java$")
+        or source_path:match("Test%.kt$")
+        or source_path:match("Test%.php$")
+    then
+        print("Already in a test file.")
+        return
+    end
+
+    -- Determine file type and generate paths/boilerplate based on the SOURCE file
+    if source_path:match("%.java$") or source_path:match("%.kt$") then
+        test_path = source_path:gsub("/src/main/", "/src/test/")
+        test_path = test_path:gsub("(.+)%.java$", "%1Test.java"):gsub("(.+)%.kt$", "%1Test.kt")
+
+        local test_dir = vim.fn.fnamemodify(test_path, ":h")
+        class_name = vim.fn.fnamemodify(test_path, ":t:r")
+        local package_match = test_dir:match("src/test/java/(.+)") or test_dir:match("src/test/kotlin/(.+)")
+        local package_str = package_match and package_match:gsub("/", ".") or ""
+
+        boilerplate = {
+            "package " .. package_str .. ";",
+            "",
+            "import static org.junit.jupiter.api.Assertions.*;",
+            "import org.junit.jupiter.api.Test;",
+            "",
+            "class " .. class_name .. " {",
+            "",
+            "    @Test",
+            "    void testSomething() {",
+            "        assertTrue(true);",
+            "    }",
+            "",
+            "}",
+        }
+    elseif source_path:match("%.php$") then
+        test_path = source_path:gsub("/app/", "/tests/Unit/")
+        test_path = test_path:gsub("(.+)%.php$", "%1Test.php")
+
+        class_name = vim.fn.fnamemodify(test_path, ":t:r")
+        local package_path = test_path:match("tests/Unit/(.+)")
+        local namespace = "Tests\\Unit\\"
+            .. (package_path and package_path:gsub("/", "\\"):gsub(class_name .. "%.php$", "") or "")
+        namespace = namespace:sub(1, -2)
+
+        boilerplate = {
+            "<?php",
+            "",
+            "namespace " .. namespace .. ";",
+            "",
+            "use Tests\\TestCase;",
+            "",
+            "class " .. class_name .. " extends TestCase",
+            "{",
+            "    /** @test */",
+            "    public function it_does_something(): void",
+            "    {",
+            "        $this->assertTrue(true);",
+            "    }",
+            "}",
+        }
+    elseif
+        source_path:match("%.tsx$")
+        or source_path:match("%.jsx$")
+        or source_path:match("%.ts$")
+        or source_path:match("%.js$")
+    then
+        test_path = source_path:gsub("(.+)%.(tsx|jsx|ts|js)$", "%1.test.%2")
+
+        class_name = vim.fn.fnamemodify(test_path, ":t:r")
+
+        boilerplate = {
+            "import { render, screen } from '@testing-library/react';",
+            "import '@testing-library/jest-dom';",
+            "",
+            'describe("' .. class_name:gsub("%.test", "") .. '", () => {',
+            '  it("should do something", () => {',
+            "    // Test logic here",
+            "  });",
+            "});",
+        }
+    else
+        print("Could not determine a test file path for this file type.")
+        return
+    end
+
+    if vim.fn.filereadable(test_path) == 1 then
+        print("Test file already exists. Opening it.")
+        vim.cmd.edit(test_path)
+        return
+    end
+
+    local test_dir = vim.fn.fnamemodify(test_path, ":h")
+    vim.fn.mkdir(test_dir, "p")
+    vim.fn.writefile(boilerplate, test_path)
+    print("Created test file at: " .. test_path)
+    vim.cmd.edit(test_path)
+end
 
 return M
