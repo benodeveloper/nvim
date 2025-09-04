@@ -17,17 +17,6 @@ vim.keymap.set("n", "<leader>tt", function()
     tests.run_gradle_test("function")
 end, { desc = "Run [T]his [T]est function" })
 
--- Define the keymaps for visual mode
-vim.keymap.set("v", "<leader>sc", function()
-    require("nvim-silicon").clip()
-end, { desc = "Copy code screenshot to clipboard" })
-vim.keymap.set("v", "<leader>sf", function()
-    require("nvim-silicon").file()
-end, { desc = "Save code screenshot as file" })
-vim.keymap.set("v", "<leader>ss", function()
-    require("nvim-silicon").shoot()
-end, { desc = "Create code screenshot" })
-
 -- nvim-dap
 vim.keymap.set(
     "n",
@@ -48,6 +37,7 @@ vim.keymap.set("n", "<space>nn", "<cmd>Noice<cr>", { desc = "Noice Messages" })
 vim.keymap.set("n", "<space>na", "<cmd>NoiceAll<cr>", { desc = "Noice All Messages" })
 vim.keymap.set("n", "<space>nl", "<cmd>NoiceLast<cr>", { desc = "Noice Last" })
 vim.keymap.set("n", "<space>ne", "<cmd>NoiceErrors<cr>", { desc = "Noice Errors" })
+
 vim.keymap.set("n", "<space>ns", function()
     require("noice").redirect("Notifications")
 end, { desc = "Noice Notifications" })
