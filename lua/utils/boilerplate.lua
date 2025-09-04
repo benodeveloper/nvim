@@ -1,5 +1,19 @@
 local M = {}
 
+-- Helper function to convert a string to PascalCase
+local function toPascalCase(str)
+    local words = {}
+    -- Split the string by delimiters like hyphen, underscore, or space
+    for word in str:gmatch("[^-_%s]+") do
+        table.insert(words, word)
+    end
+    for i, word in ipairs(words) do
+        -- Capitalize the first letter and make the rest lowercase
+        words[i] = word:sub(1, 1):upper() .. word:sub(2):lower()
+    end
+    return table.concat(words, "")
+end
+
 function M.setup_file_boilerplate()
     -- Only run if the buffer is empty
     if vim.fn.line("$") > 1 or #vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] > 0 then
@@ -58,6 +72,32 @@ function M.setup_file_boilerplate()
             }
             cursor_pos = { 7, 5 } -- Line 7, 5th character (indented)
         end
+
+    -- ## --- React Component Logic --- ##
+    elseif file_path:match("%.tsx$") or file_path:match("%.jsx$") then
+        print("this workds")
+        local base_name = vim.fn.fnamemodify(file_path, ":t:r")
+        local component_name = toPascalCase(base_name)
+        local return_type = ""
+
+        if file_path:match("%.tsx$") then
+            return_type = ": React.ReactElement"
+        end
+
+        boilerplate = {
+            "import React from 'react';",
+            "",
+            "const " .. component_name .. " = ()" .. return_type .. " => {",
+            "  return (",
+            "    <>",
+            "      {/* Your component JSX here */}",
+            "    </>",
+            "  );",
+            "};",
+            "",
+            "export default " .. component_name .. ";",
+        }
+        cursor_pos = { 6, 7 } -- Inside the empty fragment
     end
 
     -- If any boilerplate was generated, insert it and set the cursor
