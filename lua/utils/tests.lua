@@ -1,4 +1,3 @@
--- lua/utils/tests.lua (Corrected Version)
 local M = {}
 
 local function get_current_function_name()

@@ -4,6 +4,7 @@ return {
         ensure_installed = {
             "glint",
             "vtsls",
+            "google-java-format",
             "java-debug-adapter",
             "typescript-language-server",
             "shellcheck",
