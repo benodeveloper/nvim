@@ -1,0 +1,70 @@
+local M = {}
+
+function M.setup_file_boilerplate()
+    -- Only run if the buffer is empty
+    if vim.fn.line("$") > 1 or #vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] > 0 then
+        return
+    end
+
+    local file_path = vim.api.nvim_buf_get_name(0)
+    local boilerplate = {}
+    local cursor_pos = {}
+
+    -- ## --- Java Boilerplate Logic --- ##
+    if file_path:match("%.java$") then
+        local class_name = vim.fn.fnamemodify(file_path, ":t:r")
+        local package_str = ""
+        local package_match = file_path:match("src/main/java/(.+)")
+        if package_match then
+            local package_dir = vim.fn.fnamemodify(package_match, ":h")
+            if package_dir ~= "." then
+                package_str = package_dir:gsub("/", ".")
+            end
+        end
+        boilerplate = {
+            "package " .. package_str .. ";",
+            "",
+            "public class " .. class_name .. " {",
+            "    ", -- Indented line for the cursor
+            "}",
+        }
+        cursor_pos = { 4, 5 } -- Line 4, 5th character (indented)
+
+    -- ## --- PHP Boilerplate Logic --- ##
+    elseif file_path:match("%.php$") then
+        local filename = vim.fn.fnamemodify(file_path, ":t")
+        local class_name = vim.fn.fnamemodify(file_path, ":t:r")
+
+        -- Only apply boilerplate if the filename starts with an uppercase letter (PSR standard for classes)
+        if filename:sub(1, 1):match("%u") then
+            local namespace_str = "App"
+            -- Attempt to determine namespace from a common structure like 'app/...'
+            local namespace_match = file_path:match("/app/(.+)")
+            if namespace_match then
+                local namespace_dir = vim.fn.fnamemodify(namespace_match, ":h")
+                if namespace_dir ~= "." then
+                    namespace_str = "App\\" .. namespace_dir:gsub("/", "\\")
+                end
+            end
+            boilerplate = {
+                "<?php",
+                "",
+                "namespace " .. namespace_str .. ";",
+                "",
+                "class " .. class_name,
+                "{",
+                "    ", -- Indented line for the cursor
+                "}",
+            }
+            cursor_pos = { 7, 5 } -- Line 7, 5th character (indented)
+        end
+    end
+
+    -- If any boilerplate was generated, insert it and set the cursor
+    if #boilerplate > 0 then
+        vim.api.nvim_buf_set_lines(0, 0, -1, false, boilerplate)
+        vim.api.nvim_win_set_cursor(0, cursor_pos)
+    end
+end
+
+return M
