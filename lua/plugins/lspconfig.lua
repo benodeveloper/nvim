@@ -16,6 +16,17 @@ return {
                         "markdown",
                     },
                 },
+                intelephense = {},
+                tailwindcss = {
+                    filetypes = {
+                        "html",
+                        "css",
+                        "scss",
+                        "javascriptreact",
+                        "typescriptreact",
+                        "blade",
+                    },
+                },
             },
         },
     },
