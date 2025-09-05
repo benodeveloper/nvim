@@ -4,18 +4,18 @@ local tests = require("utils.tests")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "<leader>tf", function()
-    tests.run_gradle_test("file")
-end, { desc = "Run [T]est [F]ile" })
+-- vim.keymap.set("n", "<leader>tf", function()
+--     tests.run_gradle_test("file")
+-- end, { desc = "Run [T]est [F]ile" })
 
 vim.keymap.set("n", "<leader>ct", function()
     tests.create_test_file()
 end, { desc = "[C]reate [T]est file" })
 
 -- Run the specific test function under the cursor
-vim.keymap.set("n", "<leader>tt", function()
-    tests.run_gradle_test("function")
-end, { desc = "Run [T]his [T]est function" })
+-- vim.keymap.set("n", "<leader>tt", function()
+--     tests.run_gradle_test("function")
+-- end, { desc = "Run [T]his [T]est function" })
 
 -- nvim-dap
 vim.keymap.set(
