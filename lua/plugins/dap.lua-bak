@@ -134,6 +134,7 @@ return {
 
     config = function()
         require("neotest").setup({
+            adapters = { require("neotest-java") },
             icons = {
                 passed = "✅",
                 failed = "❌",
