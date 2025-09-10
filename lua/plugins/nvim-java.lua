@@ -17,13 +17,16 @@ end
 
 return {
 	"mfussenegger/nvim-jdtls",
-	dependencies = { "folke/which-key.nvim" },
+	dependencies = {
+		"nvim-java/nvim-java-test",
+		"folke/which-key.nvim",
+	},
 	ft = java_filetypes,
 	opts = function()
-		local cmd = { vim.fn.exepath("jdtls") }
-		if LazyVim.has("mason.nvim") then
+		local cmd = { vim.fn.exepath("jdtls") } --/home/benodeveloper/.local/share/nvim/mason/bin/jdtls
+		if LazyVim.has("mason.nvim") then -- true
 			local mason_registry = require("mason-registry")
-			local lombok_jar = mason_registry.get_package("jdtls"):get_install_path() .. "/lombok.jar"
+			local lombok_jar = mason_registry.get_package("jdtls"):get_install_path() .. "/lombok.jar" -- /home/benodeveloper/.local/share/nvim/mason/packages/jdtls/lombok.jar
 			table.insert(cmd, string.format("--jvm-arg=-javaagent:%s", lombok_jar))
 		end
 		return {
@@ -45,7 +48,6 @@ return {
 			end,
 
 			-- How to run jdtls. This can be overridden to a full java command-line
-			-- if the Python wrapper script doesn't suffice.
 			cmd = cmd,
 			full_cmd = function(opts)
 				local fname = vim.api.nvim_buf_get_name(0)
