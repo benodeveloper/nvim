@@ -179,6 +179,13 @@ return {
 						},
 					})
 
+					wk.add({
+						{ "<leader>jc", "<Cmd>JdtUpdateConfig<CR>", desc = "JDT: Update Config" },
+						{ "<leader>dw", "<Cmd>JdtWipeDataAndRestart<CR>", desc = "JDT: Wipe Data and Restart" }, -- ADDED THIS KEYMAP					-- JDTLS Keymaps
+						{ "<leader>de", "<Cmd>JdtBytecode<CR>", desc = "JDT: View Bytecode" },
+						{ "<leader>dl", require("jdtls.tests").goto_log, desc = "JDT: Go to Log" },
+					})
+
 					if LazyVim.has("mason.nvim") then
 						local mason_registry = require("mason-registry")
 						if
@@ -223,6 +230,7 @@ return {
 											desc = "Run Nearest Test",
 										},
 										{ "<leader>tT", require("jdtls.dap").pick_test, desc = "Run Test" },
+										{ "<leader>tg", require("jdtls.tests").generate, desc = " Generate test" },
 									},
 								})
 							end
