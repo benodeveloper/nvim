@@ -88,28 +88,28 @@ function M.setup_file_boilerplate()
 			cursor_pos = { 7, 5 } -- Line 7, 5th character (indented)
 		end
 
-	--- React Component Boilerplate (TSX/JSX) ---
-	elseif file_path:match("%.tsx$") or file_path:match("%.jsx$") then
-		local base_name = vim.fn.fnamemodify(file_path, ":t:r")
-		local component_name = toPascalCase(base_name)
-		local return_type = ""
-		if file_path:match("%.tsx$") then
-			return_type = ": React.ReactElement"
-		end
-		boilerplate = {
-			"import React from 'react';",
-			"",
-			"const " .. component_name .. " = ()" .. return_type .. " => {",
-			"  return (",
-			"    <>",
-			"      {/* Your component JSX here */}",
-			"    </>",
-			"  );",
-			"};",
-			"",
-			"export default " .. component_name .. ";",
-		}
-		cursor_pos = { 6, 7 } -- Inside the empty fragment
+		--- React Component Boilerplate (TSX/JSX) ---
+		-- elseif file_path:match("%.tsx$") or file_path:match("%.jsx$") then
+		-- 	local base_name = vim.fn.fnamemodify(file_path, ":t:r")
+		-- 	local component_name = toPascalCase(base_name)
+		-- 	local return_type = ""
+		-- 	if file_path:match("%.tsx$") then
+		-- 		return_type = ": React.ReactElement"
+		-- 	end
+		-- 	boilerplate = {
+		-- 		"import React from 'react';",
+		-- 		"",
+		-- 		"const " .. component_name .. " = ()" .. return_type .. " => {",
+		-- 		"  return (",
+		-- 		"    <>",
+		-- 		"      {/* Your component JSX here */}",
+		-- 		"    </>",
+		-- 		"  );",
+		-- 		"};",
+		-- 		"",
+		-- 		"export default " .. component_name .. ";",
+		-- 	}
+		-- 	cursor_pos = { 6, 7 } -- Inside the empty fragment
 	end
 
 	-- If any boilerplate was generated, insert it and set the cursor
