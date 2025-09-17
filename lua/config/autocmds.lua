@@ -21,9 +21,9 @@ vim.api.nvim_create_autocmd("FileType", {
 			require("util.phputils").sort_php_imports()
 		end, { buffer = buf, desc = "Organize Imports (length)" })
 
-		-- Align PHP array (visual mode only)
+		-- Align PHP arrays and assignments (visual mode only)
 		vim.keymap.set("v", "<leader>cao", function()
-			require("util.phputils").align_php_array()
-		end, { buffer = buf, desc = "Align PHP array (=>)" })
+			require("util.phputils").align_php_code()
+		end, { buffer = buf, desc = "Align PHP code (= / =>)" })
 	end,
 })
