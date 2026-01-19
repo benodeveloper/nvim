@@ -9,6 +9,14 @@ return {
     notifier = { enabled = true },
     picker = { enabled = true },
     terminal = { enabled = true },
+    scratch = {
+      win = {
+        position = "current", -- Open in the current window instead of a float
+        -- Optional: if you prefer a side-split instead, use "right" or "bottom"
+        -- position = "right", 
+        -- width = 0.3,
+      },
+    },
     dashboard = {
       enabled = true,
       preset = {

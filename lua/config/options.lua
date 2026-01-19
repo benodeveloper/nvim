@@ -27,7 +27,7 @@ opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.colorcolumn = "100"
 opt.completeopt = "menuone,noinsert,noselect"
-opt.showmode = false
+opt.showmode = false 
 opt.pumheight = 10
 opt.pumblend = 10
 
@@ -56,3 +56,5 @@ opt.foldlevel = 99
 -- Split behavior
 opt.splitbelow = true
 opt.splitright = true
+
+vim.api.nvim_set_hl(0, "DiagnosticUnused", { underline = true, fg = "#5c6370", italic = true })
