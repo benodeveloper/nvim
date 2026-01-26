@@ -34,6 +34,7 @@ return {
             hover = { actions = { enable = true } },
             completion = {
               autoimport = { enable = true }, -- Crucial for auto-imports
+              callable = { snippets = "fill_arguments" }, -- Adds () and arguments automatically
             },
           },
         },

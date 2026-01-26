@@ -1,17 +1,14 @@
 return {
   {
-    "navarasu/onedark.nvim",
-    priority = 1000, -- make sure to load this before all the other start plugins
+    "the-coding-doggo/batman.nvim",
+    lazy = false, 
+    priority = 1000, 
     config = function()
-      require('onedark').setup {
-        style = 'darker'
-      }
-      require('onedark').load()
-    end
+      require("batman").setup({
+        theme = "joker_night",
+         -- transparent_background = true,
+      })
+      vim.cmd("colorscheme batman")
+    end,
   },
-  {
-    'tribela/transparent.nvim',
-    event = 'VimEnter',
-    config = true,
-  }
 }
